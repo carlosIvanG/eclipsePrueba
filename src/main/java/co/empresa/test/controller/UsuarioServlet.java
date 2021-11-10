@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.empresa.test.dao.UsuarioDao;
+import co.empresa.test.dao.UsuarioDaoFactory;
+import co.empresa.test.dao.UsuarioDaoMySQL;
+import co.empresa.test.dao.UsuarioDaoPostgreSQL;
 import co.empresa.test.modelo.Usuario;
 
 /**
@@ -35,7 +38,7 @@ public class UsuarioServlet extends HttpServlet {
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
-		this.usuarioDao = new UsuarioDao();
+		this.usuarioDao = UsuarioDaoFactory.getUsuarioDao("postgresql");
 	}
 
 	/**
