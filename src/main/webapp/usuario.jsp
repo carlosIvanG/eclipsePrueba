@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +55,7 @@
 						<label>Nombre de Usuario</label><input class="form-control" name="nombre" required="required" type="text" value="<c:out value='${usuario.nombre}'/>" />
 					</fieldset>
 					<fieldset class="form-group">
-						<label>Email de Usuario</label><input class="form-control" name="email" type="email" pattern=".+@ufps.edu.co" value="<c:out value='${usuario.email}'/>" />
+						<label>Email de Usuario</label><input class="form-control" name="email" type="email" value="<c:out value='${usuario.email}'/>" />
 					</fieldset>
 					<fieldset class="form-group">
 						<label>Pass de Usuario</label><input class="form-control" name="pass" type="text" value="<c:out value='${usuario.pass}'/>" />

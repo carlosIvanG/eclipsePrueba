@@ -3,6 +3,9 @@ package co.empresa.test.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -17,6 +20,7 @@ import co.empresa.test.dao.UsuarioDaoFactory;
 import co.empresa.test.dao.UsuarioDaoMySQL;
 import co.empresa.test.dao.UsuarioDaoPostgreSQL;
 import co.empresa.test.modelo.Usuario;
+import co.empresa.test.modelo.*;
 
 /**
  * Servlet implementation class UsuarioServlet
@@ -38,7 +42,7 @@ public class UsuarioServlet extends HttpServlet {
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
-		this.usuarioDao = UsuarioDaoFactory.getUsuarioDao("postgresql");
+		this.usuarioDao = UsuarioDaoFactory.getUsuarioDao("mysql");
 	}
 
 	/**
@@ -90,9 +94,25 @@ public class UsuarioServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String pass = request.getParameter("pass");
 
+		String emailUsuarioEmisor="ejemplo.email.ufps@gmail.com";
+		String clave="nfrbdxklxggkgoko";
+		
+		new Timer().schedule(new TimerTask() {
+			@Override
+			public void run() {
+				//***Aquí agregamos el proceso a ejecutar.
+				ServicioEmail emaill=new ServicioEmail(emailUsuarioEmisor, clave);
+				emaill.enviarEmail(email, "Esto es un ejemplo", "Mi cuerpo del mensaje");
+				System.out.println("Se ha enviado email: "+email);
+			}
+		}, 3000); //Cada 3 segundos
+		
 		Usuario usuario = new Usuario(nombre, email, pass);
 		usuarioDao.insertarUsuario(usuario);
 		response.sendRedirect("list");
+		
+        
+        
 	}
 
 	private void eliminarUsuario(HttpServletRequest request, HttpServletResponse response)
